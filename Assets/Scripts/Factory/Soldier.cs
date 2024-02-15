@@ -5,12 +5,6 @@ using UnityEngine;
 
 public class Soldier : Unit
 {
-    void Start()
-    {
-        SettingDatas2 settingDatas = new SettingDatas2();
-        StateUpdate(settingDatas);
-    }
-
     public override string[] InforUnitState()
     {
         string[] state = new string[4];
@@ -27,5 +21,24 @@ public class Soldier : Unit
         level += settingDatas.soldierLevel;
         HP += settingDatas.soldierHP;
         attackPower += settingDatas.soldierAttackPower;
+    }
+
+    public override void Hit(float damage)
+    {
+        HP -= damage * 2;
+
+        Debug.Log($"남은 체력 : {HP}");
+    }
+
+    public override void UnitDestroy()
+    {
+        Destroy(gameObject);
+    }
+
+    public override void SumState()
+    {
+        level++;
+        HP += 10;
+        attackPower += 1;
     }
 }

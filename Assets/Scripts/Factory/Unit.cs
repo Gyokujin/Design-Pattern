@@ -16,4 +16,7 @@ public abstract class Unit : MonoBehaviour
 
     public abstract string[] InforUnitState();
     public abstract void StateUpdate(SettingDatas2 settingDatas);
+    public abstract void Hit(float damage);
+    public abstract void UnitDestroy();
+    public abstract void SumState();
 }

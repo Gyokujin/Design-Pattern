@@ -16,9 +16,17 @@ public class FactoryGameManager : MonoBehaviour
     [SerializeField]
     private Text textAttackPower;
 
+    UnitManager unitManager;
+
     void Start()
     {
         Init();
+    }
+
+    void Init()
+    {
+        stateWindow.SetActive(false);
+        unitManager = GetComponent<UnitManager>();
     }
 
     void Update()
@@ -27,19 +35,16 @@ public class FactoryGameManager : MonoBehaviour
         {
             InfoUnitState();
         }
-    }
-
-    void Init()
-    {
-        stateWindow.SetActive(false);
+        else if (Input.GetMouseButtonDown(1))
+        {
+            HitUnit();
+        }
     }
 
     void InfoUnitState()
     {
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        Physics.Raycast(ray, out hit);
+        Physics.Raycast(ClickPosition(), out hit);
 
         if (hit.collider.CompareTag("Soldier"))
         {
@@ -59,5 +64,52 @@ public class FactoryGameManager : MonoBehaviour
         textAttackPower.text = $"Attack : {state[3]}";
 
         stateWindow.SetActive(true);
+    }
+
+    public void UnitSpawnButton(int type)
+    {
+        switch (type)
+        {
+            case 0:
+                {
+                    unitManager.MakeUnit(UnitType.Soldier);
+                }
+                break;
+            case 1:
+                {
+                    unitManager.MakeUnit(UnitType.Flight);
+                }
+                break;
+        }
+    }
+
+    void HitUnit()
+    {
+        RaycastHit hit;
+        Physics.Raycast(ClickPosition(), out hit);
+
+        if (hit.collider.gameObject.CompareTag("Soldier"))
+        {
+            unitManager.SoldierHit(hit);
+        }
+        else if (hit.collider.gameObject.CompareTag("Flight"))
+        {
+            unitManager.FlightHit(hit);
+        }
+    }
+
+    Ray ClickPosition()
+    {
+        return Camera.main.ScreenPointToRay(Input.mousePosition); ;
+    }
+
+    public void SoldierLevelUpButton()
+    {
+        unitManager.SoldierLevelUp();
+    }
+
+    public void FlightLevelUpButton()
+    {
+        unitManager.FlightLevelUp();
     }
 }
