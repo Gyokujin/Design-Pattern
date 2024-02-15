@@ -1,2 +1,5 @@
 # Design-Pattern
-디자인 패턴에 관해 학습한 프로젝트입니다.
+
+강의 출처
+
+- https://youtu.be/CSNaL8Iog1Y?si=04iJwEXYws_WyEyF
