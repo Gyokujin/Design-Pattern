@@ -20,5 +20,9 @@ public class GameManager : MonoBehaviour
         {
             hit.collider.gameObject.GetComponent<HPControl>().Damage(2);
         }
+        else if (hit.collider.CompareTag("NPC"))
+        {
+            hit.collider.gameObject.GetComponent<HPControl>().Damage(10);
+        }
     }
 }
