@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
         { "Right", KeyCode.D },
     };
 
-    void Start()
+    void Awake()
     {
         instance = this;
     }
@@ -59,5 +59,15 @@ public class PlayerController : MonoBehaviour
         Command moveCommand = new MoveCommand(transform, moveDirection);
         commandInvoker.SetCommand(moveCommand);
         commandInvoker.ExecuteCommand();
+    }
+
+    public void SetKeys(Dictionary<string, KeyCode> newKeys)
+    {
+        moveKeys = newKeys;
+    }
+
+    public Dictionary<string, KeyCode> GetKeys()
+    {
+        return moveKeys;
     }
 }
